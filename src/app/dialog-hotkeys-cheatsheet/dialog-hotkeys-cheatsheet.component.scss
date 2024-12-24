@@ -1,0 +1,12 @@
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: max-content;
+  margin: auto;
+}
+kbd {
+  font-family: inherit;
+}
+kbd:not(:last-child)::after {
+  content: ', ';
+}

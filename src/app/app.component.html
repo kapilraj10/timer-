@@ -1,0 +1,82 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="true">
+    <div class="drawer-container list-centered-icons">
+      <mat-nav-list>
+        <a
+          mat-list-item
+          routerLink="all"
+          queryParamsHandling="merge"
+          routerLinkActive="nav-link-active"
+          class="link-all"
+          matTooltip="All tasks"
+        >
+          <img src="assets/favicon.svg" alt="Timer" />
+        </a>
+      </mat-nav-list>
+      <mat-nav-list class="states">
+        <a
+          mat-list-item
+          [activated]="rlaActive.isActive"
+          [routerLink]="taskState.active"
+          routerLinkActive
+          #rlaActive="routerLinkActive"
+          queryParamsHandling="merge"
+          matTooltip="Active tasks"
+          data-e2e="navigation__button-tasks-active"
+        >
+          <mat-icon [svgIcon]="taskState.active | taskStateIcon"></mat-icon>
+        </a>
+        <a
+          mat-list-item
+          [activated]="rlaFinished.isActive"
+          [routerLink]="taskState.finished"
+          routerLinkActive
+          queryParamsHandling="merge"
+          #rlaFinished="routerLinkActive"
+          matTooltip="Finished tasks"
+          data-e2e="navigation__button-tasks-finished"
+          ><mat-icon [svgIcon]="taskState.finished | taskStateIcon"></mat-icon
+        ></a>
+        <a
+          mat-list-item
+          [activated]="rlaDropped.isActive"
+          [routerLink]="taskState.dropped"
+          routerLinkActive
+          #rlaDropped="routerLinkActive"
+          queryParamsHandling="merge"
+          matTooltip="Dropped tasks"
+          data-e2e="navigation__button-tasks-dropped"
+          ><mat-icon [svgIcon]="taskState.dropped | taskStateIcon"></mat-icon
+        ></a>
+      </mat-nav-list>
+      <mat-action-list>
+        <button
+          mat-list-item
+          matTooltip="Import/Export"
+          [matMenuTriggerFor]="importExportMenu"
+          data-e2e="navigation__button-import-export"
+        >
+          <mat-icon svgIcon="swap_vert"></mat-icon>
+        </button>
+        <mat-menu #importExportMenu="matMenu">
+          <label mat-menu-item class="import-label">
+            <input type="file" (change)="import($event)" data-e2e="navigation__input-import" />
+            Import
+          </label>
+          <a
+            mat-menu-item
+            data-e2e="navigation__button-export"
+            [href]="exportUrl()"
+            download="timer-data.json"
+            target="_blank"
+            >Export</a
+          >
+        </mat-menu>
+        <button-theme-switcher></button-theme-switcher>
+      </mat-action-list>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content cdkDropListGroup>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

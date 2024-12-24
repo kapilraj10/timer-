@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Keyboard shortcuts</h1>
+<div mat-dialog-content>
+  <dl>
+    @for (key of keys; track key.action) {
+      <dt>
+        @for (formatted of key.formatted | map: withoutCyrillics; track formatted) {
+          <kbd>{{ formatted }}</kbd>
+        }
+      </dt>
+      <dd>{{ key.description }}</dd>
+    }
+  </dl>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</div>
